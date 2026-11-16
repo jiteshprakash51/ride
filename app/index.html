@@ -1,1 +1,266 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ride direct | Private peer-to-peer test</title><meta name="description" content="Pair two browsers for a direct, zero-commission test journey. No public driver discovery or real passenger service."><meta name="theme-color" content="#f6f7f3"><meta name="robots" content="noindex"><link rel="canonical" href="https://ride.jiteshprakash.com.np/app/"><link rel="icon" href="../favicon.svg"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="pilot.css"><script src="pilot.js" type="module"></script></head><body><a class="skip" href="#main">Skip to app</a><header><a class="brand" href="/">ride<span>.</span> <small>direct</small></a><span class="tag">PRIVATE PAIRING TEST</span><a href="#about">How it works ↗</a></header><main id="main"><section class="intro"><div><p class="eyebrow">YOUR PHONES. ONE DIRECT CONNECTION.</p><h1>Less between<br>you and your ride<span>.</span></h1><p class="lead">Pair with someone you already know. Agree a fare. Keep the conversation between your browsers.</p></div><div class="orbit" aria-hidden="true"><div class="node a">R</div><div class="dash"></div><div class="node b">D</div><span>DIRECT BY DESIGN</span></div></section><div class="notice"><strong>Test journeys only.</strong> No public driver discovery, verified identities, dispatch, emergency response or payment processing. Do not use this for real passenger transport.</div><div id="message" role="status" aria-live="polite"></div><div class="workspace"><section class="panel connection"><div class="section-title"><span class="step">01</span><h2>Make a connection</h2><span id="connection-state" class="pill">Not paired</span></div><p class="muted">Keep both screens open. Send connection codes only to your chosen test partner, using a trusted private channel.</p><fieldset id="settings"><legend>Your side</legend><div class="role-row"><label><input type="radio" name="role" value="rider" checked> Rider</label><label><input type="radio" name="role" value="driver"> Driver</label></div><label class="check"><input id="stun" type="checkbox"> Use Cloudflare's free STUN for different networks</label><p class="fine">Optional connection discovery, not a message relay. Cloudflare sees connection metadata. Peers can learn each other's network address. Some networks still need TURN, which is not enabled.</p><label class="check"><input id="consent" type="checkbox"> I understand this is an unverified test connection and will use fictional journey details.</label></fieldset><div class="actions"><button id="create">Create a pairing code</button><button id="join" class="secondary">Respond to a code</button></div><div id="incoming-box" hidden><label for="incoming">Partner's connection code</label><textarea id="incoming" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Paste their complete code here"></textarea><button id="apply">Use this code</button></div><div id="outgoing-box" hidden><label for="outgoing" id="outgoing-label">Your code</label><textarea id="outgoing" rows="3" readonly spellcheck="false"></textarea><div class="actions"><button id="copy" class="secondary">Copy code</button></div><p id="code-help" class="fine"></p></div><div id="verify-box" hidden><p class="eyebrow">CHECK WITH YOUR PARTNER</p><p>Both screens must show this same connection fingerprint:</p><strong id="fingerprint" class="fingerprint"></strong><p class="fine">Compare using a trusted voice or in-person channel. A matching code confirms this connection, not a person's identity or driving credentials.</p><button id="verify">The fingerprint matches</button></div><button id="disconnect" class="text-button" hidden>Disconnect and clear this session</button></section><section class="panel journey"><div class="section-title"><span class="step">02</span><h2>Your shared journey</h2></div><div id="waiting" class="empty"><span class="empty-icon">↗</span><h3>A direct connection comes first.</h3><p>Then the rider can send a fictional journey request. The driver receives it on their own screen.</p><span class="micro">0% platform commission · No in-app payments</span></div><div id="trip-app" hidden><p id="role-note" class="muted"></p><form id="request-form" hidden><label for="pickup">Test pickup</label><input id="pickup" maxlength="120" required placeholder="Fictional north gate"><label for="destination">Test destination</label><input id="destination" maxlength="120" required placeholder="Fictional south square"><label for="fare">Proposed fare · NPR</label><input id="fare" type="number" min="1" max="100000" step="1" required placeholder="200"><p class="fine">No payment is taken. Both testers must agree the displayed fare. Rider confirms the start only after checking the driver in person in any future real-world version.</p><button>Send test request</button></form><div id="trip-view" hidden><div class="trip-top"><span id="trip-status" class="pill"></span><span id="revision" class="fine"></span></div><div class="route"><div><small>FROM</small><p id="show-pickup"></p></div><div><small>TO</small><p id="show-destination"></p></div></div><div class="fare"><span>Agreed test fare<strong id="show-fare"></strong></span><span class="commission">0%<small>platform fee</small></span></div><p id="trip-help" class="muted"></p><div id="trip-actions" class="actions"></div><p id="sync" class="fine"></p></div><div class="quick-message"><label for="chat">Private test message</label><form id="chat-form"><input id="chat" maxlength="160" required placeholder="Message this peer only" autocomplete="off"><button class="secondary">Send</button></form><ul id="messages" aria-live="polite"></ul></div></div></section></div><section id="about" class="about"><p class="eyebrow">HONEST LIMITS / OPEN SOURCE</p><h2>Direct does not mean<br>no trade-offs.</h2><div class="about-grid"><article><h3>No hidden backend</h3><p>Static files on Cloudflare Pages. Manual offer/answer codes replace a signaling service. Journey messages travel over an encrypted WebRTC data channel, not a database or blockchain.</p></article><article><h3>Not a citywide marketplace</h3><p>You must already have a way to contact your partner. No background dispatch, public matching, accounts or automatic reconnection. Some networks cannot connect without a relay. No TURN service is configured.</p></article><article><h3>Temporary by default</h3><p>App journey data stays in the current tabs. Disconnecting or reloading clears it here, but your peer can copy it. Pairing codes contain connection metadata; do not post them publicly. Offline mode only opens this app shell.</p></article><article><h3>Not a safety guarantee</h3><p>No driver, vehicle, insurance or legal verification is performed. Keep testing fictional. In any future service, direct cash or licensed local payment is separate. This app takes no commission and handles no money.</p></article></div></section></main><footer><a class="brand" href="/">ride<span>.</span></a><p>A small, open beginning. Not a transport service.</p><a href="https://github.com/jiteshprakash51/ride">Source &amp; MIT license ↗</a></footer></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ride direct | Private peer-to-peer test</title>
+    <meta
+      name="description"
+      content="Pair two browsers for a direct, zero-commission test journey. No public driver discovery or real passenger service."
+    />
+    <meta name="theme-color" content="#f6f7f3" />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="https://ride.jiteshprakash.com.np/app/" />
+    <link rel="icon" href="../favicon.svg" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="pilot.css" />
+    <script src="pilot.js" type="module"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to app</a>
+    <header>
+      <a class="brand" href="/">ride<span>.</span> <small>direct</small></a
+      ><span class="tag">PRIVATE PAIRING TEST</span
+      ><a href="#about">How it works ↗</a>
+    </header>
+    <main id="main">
+      <section class="intro">
+        <div>
+          <p class="eyebrow">YOUR PHONES. ONE DIRECT CONNECTION.</p>
+          <h1>Less between<br />you and your ride<span>.</span></h1>
+          <p class="lead">
+            Pair with someone you already know. Agree a fare. Keep the
+            conversation between your browsers.
+          </p>
+        </div>
+        <div class="orbit" aria-hidden="true">
+          <div class="node a">R</div>
+          <div class="dash"></div>
+          <div class="node b">D</div>
+          <span>DIRECT BY DESIGN</span>
+        </div>
+      </section>
+      <div class="notice">
+        <strong>Test journeys only.</strong> No public driver discovery,
+        verified identities, dispatch, emergency response or payment processing.
+        Do not use this for real passenger transport.
+      </div>
+      <div id="message" role="status" aria-live="polite"></div>
+      <div class="workspace">
+        <section class="panel connection">
+          <div class="section-title">
+            <span class="step">01</span>
+            <h2>Make a connection</h2>
+            <span id="connection-state" class="pill">Not paired</span>
+          </div>
+          <p class="muted">
+            Keep both screens open. Send connection codes only to your chosen
+            test partner, using a trusted private channel.
+          </p>
+          <fieldset id="settings">
+            <legend>Your side</legend>
+            <div class="role-row">
+              <label
+                ><input type="radio" name="role" value="rider" checked />
+                Rider</label
+              ><label
+                ><input type="radio" name="role" value="driver" /> Driver</label
+              >
+            </div>
+            <label class="check"
+              ><input id="stun" type="checkbox" /> Use Cloudflare's free STUN
+              for different networks</label
+            >
+            <p class="fine">
+              Optional connection discovery, not a message relay. Cloudflare
+              sees connection metadata. Peers can learn each other's network
+              address. Some networks still need TURN, which is not enabled.
+            </p>
+            <label class="check"
+              ><input id="consent" type="checkbox" /> I understand this is an
+              unverified test connection and will use fictional journey
+              details.</label
+            >
+          </fieldset>
+          <div class="actions">
+            <button id="create">Create a pairing code</button
+            ><button id="join" class="secondary">Respond to a code</button>
+          </div>
+          <div id="incoming-box" hidden>
+            <label for="incoming">Partner's connection code</label
+            ><textarea
+              id="incoming"
+              rows="3"
+              spellcheck="false"
+              autocapitalize="off"
+              autocomplete="off"
+              placeholder="Paste their complete code here"
+            ></textarea
+            ><button id="apply">Use this code</button>
+          </div>
+          <div id="outgoing-box" hidden>
+            <label for="outgoing" id="outgoing-label">Your code</label
+            ><textarea
+              id="outgoing"
+              rows="3"
+              readonly
+              spellcheck="false"
+            ></textarea>
+            <div class="actions">
+              <button id="copy" class="secondary">Copy code</button>
+            </div>
+            <p id="code-help" class="fine"></p>
+          </div>
+          <div id="verify-box" hidden>
+            <p class="eyebrow">CHECK WITH YOUR PARTNER</p>
+            <p>Both screens must show this same connection fingerprint:</p>
+            <strong id="fingerprint" class="fingerprint"></strong>
+            <p class="fine">
+              Compare using a trusted voice or in-person channel. A matching
+              code confirms this connection, not a person's identity or driving
+              credentials.
+            </p>
+            <button id="verify">The fingerprint matches</button>
+          </div>
+          <button id="disconnect" class="text-button" hidden>
+            Disconnect and clear this session
+          </button>
+        </section>
+        <section class="panel journey">
+          <div class="section-title">
+            <span class="step">02</span>
+            <h2>Your shared journey</h2>
+          </div>
+          <div id="waiting" class="empty">
+            <span class="empty-icon">↗</span>
+            <h3>A direct connection comes first.</h3>
+            <p>
+              Then the rider can send a fictional journey request. The driver
+              receives it on their own screen.
+            </p>
+            <span class="micro"
+              >0% platform commission · No in-app payments</span
+            >
+          </div>
+          <div id="trip-app" hidden>
+            <p id="role-note" class="muted"></p>
+            <form id="request-form" hidden>
+              <label for="pickup">Test pickup</label
+              ><input
+                id="pickup"
+                maxlength="120"
+                required
+                placeholder="Fictional north gate"
+              /><label for="destination">Test destination</label
+              ><input
+                id="destination"
+                maxlength="120"
+                required
+                placeholder="Fictional south square"
+              /><label for="fare">Proposed fare · NPR</label
+              ><input
+                id="fare"
+                type="number"
+                min="1"
+                max="100000"
+                step="1"
+                required
+                placeholder="200"
+              />
+              <p class="fine">
+                No payment is taken. Both testers must agree the displayed fare.
+                Rider confirms the start only after checking the driver in
+                person in any future real-world version.
+              </p>
+              <button>Send test request</button>
+            </form>
+            <div id="trip-view" hidden>
+              <div class="trip-top">
+                <span id="trip-status" class="pill"></span
+                ><span id="revision" class="fine"></span>
+              </div>
+              <div class="route">
+                <div>
+                  <small>FROM</small>
+                  <p id="show-pickup"></p>
+                </div>
+                <div>
+                  <small>TO</small>
+                  <p id="show-destination"></p>
+                </div>
+              </div>
+              <div class="fare">
+                <span>Agreed test fare<strong id="show-fare"></strong></span
+                ><span class="commission">0%<small>platform fee</small></span>
+              </div>
+              <p id="trip-help" class="muted"></p>
+              <div id="trip-actions" class="actions"></div>
+              <p id="sync" class="fine"></p>
+            </div>
+            <div class="quick-message">
+              <label for="chat">Private test message</label>
+              <form id="chat-form">
+                <input
+                  id="chat"
+                  maxlength="160"
+                  required
+                  placeholder="Message this peer only"
+                  autocomplete="off"
+                /><button class="secondary">Send</button>
+              </form>
+              <ul id="messages" aria-live="polite"></ul>
+            </div>
+          </div>
+        </section>
+      </div>
+      <section id="about" class="about">
+        <p class="eyebrow">HONEST LIMITS / OPEN SOURCE</p>
+        <h2>Direct does not mean<br />no trade-offs.</h2>
+        <div class="about-grid">
+          <article>
+            <h3>No hidden backend</h3>
+            <p>
+              Static files on Cloudflare Pages. Manual offer/answer codes
+              replace a signaling service. Journey messages travel over an
+              encrypted WebRTC data channel, not a database or blockchain.
+            </p>
+          </article>
+          <article>
+            <h3>Not a citywide marketplace</h3>
+            <p>
+              You must already have a way to contact your partner. No background
+              dispatch, public matching, accounts or automatic reconnection.
+              Some networks cannot connect without a relay. No TURN service is
+              configured.
+            </p>
+          </article>
+          <article>
+            <h3>Temporary by default</h3>
+            <p>
+              App journey data stays in the current tabs. Disconnecting or
+              reloading clears it here, but your peer can copy it. Pairing codes
+              contain connection metadata; do not post them publicly. Offline
+              mode only opens this app shell.
+            </p>
+          </article>
+          <article>
+            <h3>Not a safety guarantee</h3>
+            <p>
+              No driver, vehicle, insurance or legal verification is performed.
+              Keep testing fictional. In any future service, direct cash or
+              licensed local payment is separate. This app takes no commission
+              and handles no money.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <a class="brand" href="/">ride<span>.</span></a>
+      <p>A small, open beginning. Not a transport service.</p>
+      <a href="https://github.com/jiteshprakash51/ride"
+        >Source &amp; MIT license ↗</a
+      >
+    </footer>
+  </body>
+</html>

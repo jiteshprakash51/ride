@@ -35,3 +35,14 @@ Optional `stun:stun.cloudflare.com:3478` is documented by Cloudflare as free and
 - https://developers.cloudflare.com/realtime/turn/ - STUN endpoint and port.
 - https://developers.cloudflare.com/realtime/turn/generate-credentials/ - TURN requires protected credential generation; not enabled here.
 - https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable - manifest and HTTPS installation requirements.
+
+## Next dependency decision
+
+For an Internet-wide public network, the recommended architecture is an open, community-operated bootstrap/rendezvous and encrypted fallback-relay layer, using direct peer channels where they work. This requires an approved reachable operator, metadata/retention policy, abuse controls and a funding/availability plan. No such service is selected or enabled. If absolutely no infrastructure is acceptable, a native nearby-only experiment is a different, range-limited product, not a citywide ride marketplace.
+
+Further sources checked:
+
+- https://libp2p.io/docs/webrtc-browser-connectivity/ - browser peers still need a publicly reachable long-running relay/bootstrap peer; sample pubsub discovery has production/scaling caveats.
+- https://github.com/libp2p/js-libp2p-example-browser-pubsub - initial signaling requires a circuit relay, even when a later direct path is established.
+- https://nostr.com/relays - decentralized Nostr transport still uses relay servers, with variable reliability and free/paid operation.
+- https://developer.android.com/develop/connectivity/wifi/wifi-direct - native Android nearby peer discovery without Internet; platform-specific and not citywide coverage.

@@ -9,8 +9,16 @@
 - Matching fingerprints, both-side verification, request delivered to driver context, acceptance, arrival, rider start, completion and peer acknowledgements.
 - A message containing HTML-like attack text rendered as literal text, not markup.
 - Disconnect propagated and cleared session chat/state.
+- Extended regression passed against deployed `https://ride-abo.pages.dev/app/` in two isolated contexts on one host, including driver cancellation and empty local/session storage. This is still same-host testing, not an independent-network pass.
+- The custom-domain app rendered in the separate remote browser and was visually inspected live. One later automation-runner lookup of the custom domain failed with `ERR_NAME_NOT_RESOLVED`; that run did not establish an app failure or a functional pass.
 - No browser page errors; no horizontal overflow at 320, 390, 768 or 1440 CSS pixels.
 - Full-page desktop/mobile screenshots inspected for layout and readable structure.
+
+## Failed separate-host test
+
+A second test used an application-test Chromium host and a separate remote browser host, both loading the deployed HTTPS app. Cloudflare STUN was enabled on both. Manual offer/answer exchange succeeded. Both descriptions contained host and server-reflexive ICE candidates, but the direct connection failed before a data channel or fingerprint was established. The app reported a connection failure and did not confirm a journey.
+
+This is a recorded failure, not proof of physical-phone reliability. It shows that collecting public-facing candidates with STUN alone was insufficient for this tested network pair. No TURN or other relay was enabled, and no journey data was transferred in this failed test.
 
 ## Not yet established
 
