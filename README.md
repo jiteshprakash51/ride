@@ -25,3 +25,9 @@ Use new dedicated resources only. Do not change existing sites or DNS. Source-co
 ## Content and safety
 
 Budget snapshot: 16 November 2026, using dated NRB rate NPR 151.09/USD. Not a quote or capacity guarantee. Pilot figures exclude taxes, FX fees, SMS, labor and public-operation costs. No funding, partners, coverage, legal compliance, insurance or safety guarantees are claimed. Mock-driver acceptance is only single-tab state, not tested distributed concurrency. The app is future work.
+
+## Published site
+
+https://ride-abo.pages.dev/
+
+Git-linked Pages project `ride`, production branch `main`. Main-branch updates automatically deploy. No custom domain or DNS changes.
